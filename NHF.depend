@@ -1,0 +1,86 @@
+# depslib dependency file v1.0
+1619438457 source:c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\main.cpp
+	"defs.h"
+
+1619438336 c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\node.h
+	"defs.h"
+
+1619438372 c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\list.h
+	"defs.h"
+
+1617546714 source:c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\node.cpp
+	"defs.h"
+
+1617548015 source:c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\list.cpp
+	<iostream>
+	"defs.h"
+
+1619438700 c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\defs.h
+	<iostream>
+	<string>
+	<sstream>
+	<fstream>
+	<bitset>
+	"persistence.h"
+	"node.h"
+	"list.h"
+	"list.hpp"
+	"gtest_lite.h"
+
+1617804116 c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\memtrace.h
+	<new>
+	<cstdio>
+	<stdlib.h>
+	<iostream>
+	<fstream>
+	<sstream>
+	<vector>
+	<list>
+	<map>
+	<algorithm>
+	<functional>
+	<memory>
+	<iomanip>
+	<locale>
+	<typeinfo>
+	<ostream>
+	<stdexcept>
+	<ctime>
+	<iterator>
+	<regex>
+
+1617804107 source:c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\memtrace.cpp
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	<ctype.h>
+	"memtrace.h"
+
+1616619778 c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\gtest_lite.h
+	<iostream>
+	<cassert>
+	<cmath>
+	<cstring>
+	<limits>
+	<cstdlib>
+	<string>
+	<fstream>
+	<iterator>
+	<regex>
+	"memtrace.h"
+
+1619439889 c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\list.hpp
+
+1616617789 source:c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\string5.cpp
+	<iostream>
+	<cstring>
+	"memtrace.h"
+	"string5.h"
+
+1616617789 c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\string5.h
+	<iostream>
+
+1619302984 c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\persistence.h
+	"defs.h"
+
