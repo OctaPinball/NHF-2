@@ -186,6 +186,7 @@ void list<T>::print(std::ostream& os)
     }
 }
 
+
 template <typename T>
 void list<T>::printInverse(std::ostream& os)
 {
