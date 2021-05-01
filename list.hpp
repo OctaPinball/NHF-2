@@ -144,7 +144,7 @@ void list<T>::insertNode(const T& dataIn)
 }
 
 template <typename T>
-void list<T>::insertAtFirst(T dataIn)
+void list<T>::insertAtFirst(const T& dataIn)
 {
     node<T> * newPtr = new node<T>(dataIn);
     first->next->prev = newPtr;
@@ -154,7 +154,7 @@ void list<T>::insertAtFirst(T dataIn)
 }
 
 template <typename T>
-void list<T>::insertAtLast(T dataIn)
+void list<T>::insertAtLast(const T& dataIn)
 {
     node<T> * newPtr = new node<T>(dataIn);
     last->prev->next = newPtr;
@@ -178,7 +178,8 @@ void list<T>::print(std::ostream& os)
         while(iter.ptr != last) //prints until the end of the list is reached
         {
             //os << iter.ptr->data << ' ';
-            std::cout << iter.ptr->data;
+            //cout << typeid(iter.ptr->data).name() << endl;
+            std::cout << iter.ptr->data << ", ";
             iter++; //moves to next node in list
         }
         //cout << os;
@@ -225,7 +226,16 @@ int list<T>::size()
 template <typename T>
 void list<T>::encode8(std::ostream& stream, int number)
 {
-        std::string mainsizeString = std::to_string(number);
+        //std::string mainsizeString = std::to_string(number);
+        unsigned char* numberchar = (unsigned char*) &number;
+
+        for (int i = 0; i < sizeof(int); i++)
+        {
+            stream << numberchar[i];
+        }
+
+
+        /*
         for (std::size_t i = 0; i < 8 - mainsizeString.size(); i++)
         {
             std::bitset<8> mainsizeBi('0');
@@ -236,6 +246,7 @@ void list<T>::encode8(std::ostream& stream, int number)
             std::bitset<8> mainsizeBi(mainsizeString.c_str()[i]);
             stream << mainsizeBi;
         }
+        */
 }
 
 template <typename T>
@@ -249,39 +260,89 @@ std::ostream& list<T>::write(std::ostream& stream)
     {
         int mainsize = size();
         encode8(stream, mainsize);
-
-
         auto iter = firstData();
-        while(iter.ptr != last) //prints until the end of the list is reached
+        while(iter.ptr != last)
         {
+            /*
             std::stringstream ss;
             std::string data;
             ss << iter.ptr->data;
             ss >> data;
+            */
+            //int datasize = data.size();
+            encode8(stream, sizeof(T));
+            //cout << typeid(iter.ptr->data).name() << endl;
+            unsigned char* numberchar = (unsigned char*)&(iter.ptr->data);
 
-            int datasize = data.size();
-            encode8(stream, datasize);
+            for (int i = 0; i < sizeof(T); i++)
+            {
+                stream << numberchar[i];
+            }
 
             //std::string data = std::to_string(iter.ptr->data);
+                /*
             for (std::size_t i = 0; i < data.size(); ++i)
             {
                 std::bitset<8> b(data.c_str()[i]);
-                stream << b;
+                unsigned char c = (unsigned char)b.to_ulong();
+                stream << c;
                 //std::cout << b << std::endl;
             }
+            */
             //std::string bString = "11001100";
             //std::bitset<8> b(bString);
 
             iter++; //moves to next node in list
         }
         //stream << endl;
+        std::cout << std::endl;
     }
     return stream;
 }
 
+/*
+template <>
+std::ostream& list<const char*>::write(std::ostream& stream)
+{
+    if (first->next == last || last->prev == first)
+    {
+        throw("A lista ures!");
+    }
+    else
+    {
+        int mainsize = size();
+        encode8(stream, mainsize);
+        auto iter = firstData();
+        while (iter.ptr != last)
+        {
+            encode8(stream, (int)strlen(iter.ptr->data));
+            unsigned char* numberchar = (unsigned char*)&(iter.ptr->data);
+
+            for (int i = 0; i < sizeof(T); i++)
+            {
+                stream << numberchar[i];
+            }
+            iter++; //moves to next node in list
+        }
+        std::cout << std::endl;
+    }
+    return stream;
+}
+*/
+
+
 template <typename T>
 int list <T>::decode8(std::istream& stream)
  {
+    unsigned char numberchar[sizeof(int)];
+
+    for (int i = 0; i < sizeof(int); i++)
+    {
+        stream >> numberchar[i];
+    }
+    return *(int*)numberchar;
+
+    /*
     std::stringstream mainsizeStream;
     for(int i = 0; i < 8; i++)
     {
@@ -293,6 +354,7 @@ int list <T>::decode8(std::istream& stream)
     int mainsize = 0;
     mainsizeStream >> mainsize;
     return mainsize;
+    */
  }
 
 template <typename T>
@@ -306,13 +368,17 @@ std::istream& list <T>::read(std::istream& stream)
     for(int i = 0; i < mainsize; i++)
     {
         int datasize = decode8(stream);
-        cout << "Size: " << datasize << endl;
-        //std::bitset<64> y;
-        //stream >> y;
-        //int datasize = (int)(y.to_ullong());
 
-        unsigned char* data;
-        data = new unsigned char[datasize + 1];
+        unsigned char data[sizeof(T)];
+
+        for (int i = 0; i < sizeof(T); i++)
+        {
+            stream >> data[i];
+        }
+
+
+        insertNode(*(T*)data);
+        /*
         for(int j = 0; j < datasize; j++)
         {
             std::bitset<8> z;
@@ -320,12 +386,15 @@ std::istream& list <T>::read(std::istream& stream)
             data[j] = (unsigned char)z.to_ulong();
             std::cout << data[j] << std::endl;
         }
-        data[datasize] = '\0';
-        T elem = *((T*)data);
-        insertNode(elem);
-        std::cout << data << std::endl;
-        //std::cout << "check" << std::endl;
-        delete[] data;
+        */
+        //data[datasize] = '\0';
+        //T elem = (*(T*) data);
+
+
+        //insertNode(elem);
+        //std::cout << std::endl;
+        //std::cout << elem << std::endl;
+        //delete[] data;
     }
     return stream;
 }

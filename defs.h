@@ -6,7 +6,9 @@
 #include <string>
 #include <sstream>
 #include <fstream>
+//#include <cstring>
 #include <bitset>
+#include <typeinfo>
 
 //#include <windows.h>
 

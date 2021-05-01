@@ -6,7 +6,7 @@
 
 int main()
 {
-/*
+
     TEST(list, printInt1){
         list<int> lista;
         lista.insertNode(1);
@@ -143,7 +143,7 @@ int main()
         std::stringstream stream;
         EXPECT_ANY_THROW(lista.print(stream));
     }END
-*/
+
 
 
     std::ostream & stream = std::cout;
@@ -208,14 +208,21 @@ int main()
     geek >> x;
     cout << "Value of x : " << x << endl;
 
-    charList.write(stream);
+    std::ofstream testfilew;
+    testfilew.open("test3.txt", std::ios::binary);
+    charList.write(testfilew);
+    testfilew.close();
 
+
+    
     std::ifstream testfile;
-    testfile.open("test.txt", std::ios::binary);
+    testfile.open("test3.txt", std::ios::binary);
     list<const char*> newlist;
     newlist.read(testfile);
     testfile.close();
     newlist.print(stream);
+    
+    //newlist.print(stream);
 
     //charList.~list();
     //memtrace::mem_dump(charList, charList(sizeof));

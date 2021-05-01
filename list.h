@@ -24,8 +24,8 @@ public:
     bool isEmpty();
     void print(std::ostream& os);
     void printInverse(std::ostream& os);
-    void insertAtFirst(T);
-    void insertAtLast(T);
+    void insertAtFirst(const T&);
+    void insertAtLast(const T&);
     int size();
     virtual int decode8(std::istream&);
     virtual void encode8(std::ostream&, int);
@@ -41,19 +41,21 @@ public:
             : ptr(ptr)
         {
         }
-
+        
         iterator& operator++()
         {
             if(ptr != NULL)
                 ptr = ptr->next;
             return *this;
         }
+
         iterator operator++(int)
         {
             iterator copy = *this; // !
             ++(*this);
             return copy;
         }
+
         iterator operator--(int)
         {
             iterator copy = *this; // !
