@@ -45,6 +45,7 @@ list<T>::~list()
     delete last;
 }
 
+
 template <typename T>
 bool list<T>::isEmpty()
 {
@@ -53,6 +54,25 @@ bool list<T>::isEmpty()
     return false;
 }
 
+/*
+template <typename T>
+list<T>::list(list &obj) {
+    first = new node<T>;
+    last = new node<T>;
+    first->next = last;
+    last->prev = first;
+
+    if (isEmpty() == false)
+    {
+        node<T> *current = obj.first->next;
+        while (current != last) {
+            cout << current->data << endl;
+            insertNode(current->data);
+            current = current->next;
+        }
+    }
+}
+*/
 template <typename T>
 bool list<T>::dataExist(T dataIn)
 {
@@ -91,10 +111,12 @@ void list<T>::deleteNode(T dataIn)
 template <typename T>
 void list<T>::insertNode(const T& dataIn)
 {
+
     if(dataExist(dataIn))
     {
         throw("Van mar ilyen adat a listaban!");
     }
+
 
 
     if(isEmpty()) //if there is no nodes in the list simply insert at beginning
@@ -166,11 +188,13 @@ void list<T>::insertAtLast(const T& dataIn)
 template <typename T>
 void list<T>::print(std::ostream& os)
 {
+
     if(isEmpty())
     {
         throw("A lista ures!");
 
     }
+
     else
     {
         auto iter = firstData();
@@ -229,7 +253,7 @@ void list<T>::encode8(std::ostream& stream, int number)
         //std::string mainsizeString = std::to_string(number);
         unsigned char* numberchar = (unsigned char*) &number;
 
-        for (int i = 0; i < sizeof(int); i++)
+        for (int i = 0; i < (int)sizeof(int); i++)
         {
             stream << numberchar[i];
         }
@@ -252,7 +276,7 @@ void list<T>::encode8(std::ostream& stream, int number)
 template <typename T>
 std::ostream& list<T>::write(std::ostream& stream)
 {
-    if(first->next == last || last->prev == first)
+    if(isEmpty())
     {
         throw("A lista ures!");
     }
@@ -274,7 +298,7 @@ std::ostream& list<T>::write(std::ostream& stream)
             //cout << typeid(iter.ptr->data).name() << endl;
             unsigned char* numberchar = (unsigned char*)&(iter.ptr->data);
 
-            for (int i = 0; i < sizeof(T); i++)
+            for (int i = 0; i < (int)sizeof(T); i++)
             {
                 stream << numberchar[i];
             }
@@ -336,7 +360,7 @@ int list <T>::decode8(std::istream& stream)
  {
     unsigned char numberchar[sizeof(int)];
 
-    for (int i = 0; i < sizeof(int); i++)
+    for (int i = 0; i < (int)sizeof(int); i++)
     {
         stream >> numberchar[i];
     }
@@ -371,7 +395,7 @@ std::istream& list <T>::read(std::istream& stream)
 
         unsigned char data[sizeof(T)];
 
-        for (int i = 0; i < sizeof(T); i++)
+        for (int i = 0; i < (int)sizeof(T); i++)
         {
             stream >> data[i];
         }
@@ -399,5 +423,30 @@ std::istream& list <T>::read(std::istream& stream)
     return stream;
 }
 
+template <typename T>
+void list<T>::writetofile(const char* filename)
+{
+    std::ofstream file;
+    file.open(filename, std::ios::binary);
+    if(!file.is_open())
+    {
+        throw ("Filet nem lehet megnyitni");
+    }
+    write(file);
+    file.close();
+}
+
+template <typename T>
+void list<T>::readfromfile(const char* filename)
+{
+    std::ifstream file;
+    file.open(filename, std::ios::binary);
+    if(!file.is_open())
+    {
+        throw ("Filet nem lehet megnyitni");
+    }
+    read(file);
+    file.close();
+}
 
 #endif // LIST_HPP_INCLUDED

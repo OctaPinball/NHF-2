@@ -1,11 +1,11 @@
 # depslib dependency file v1.0
-1619438457 source:c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\main.cpp
+1619984954 source:c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\main.cpp
 	"defs.h"
 
 1619438336 c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\node.h
 	"defs.h"
 
-1619438372 c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\list.h
+1619982186 c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\list.h
 	"defs.h"
 
 1617546714 source:c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\node.cpp
@@ -15,12 +15,13 @@
 	<iostream>
 	"defs.h"
 
-1619438700 c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\defs.h
+1619867257 c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\defs.h
 	<iostream>
 	<string>
 	<sstream>
 	<fstream>
 	<bitset>
+	<typeinfo>
 	"persistence.h"
 	"node.h"
 	"list.h"
@@ -70,7 +71,7 @@
 	<regex>
 	"memtrace.h"
 
-1619439889 c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\list.hpp
+1619985920 c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\list.hpp
 
 1616617789 source:c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\string5.cpp
 	<iostream>
@@ -81,6 +82,6 @@
 1616617789 c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\string5.h
 	<iostream>
 
-1619302984 c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\persistence.h
+1619982186 c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\persistence.h
 	"defs.h"
 

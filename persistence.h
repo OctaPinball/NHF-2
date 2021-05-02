@@ -11,6 +11,8 @@ class persistence
         virtual std::istream& read(std::istream&) = 0;
         virtual int decode8(std::istream&) = 0;
         virtual void encode8(std::ostream&, int) = 0;
+        virtual void writetofile(const char* filename) = 0;
+        virtual void readfromfile(const char* filename) = 0;
         virtual ~persistence() {}
 };
 

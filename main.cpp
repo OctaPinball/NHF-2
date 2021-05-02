@@ -167,6 +167,18 @@ int main()
         cout << "Nem ures" << endl;
 
 
+    cout << "INT LISTA:" << endl;
+    list<double> doubleList;
+    doubleList.insertNode(1.01);
+    doubleList.insertNode(2.02);
+    doubleList.insertNode(4.4);
+    doubleList.insertNode(3.6);
+    doubleList.insertNode(5.7);
+    doubleList.insertNode(34.21);
+    doubleList.insertNode(15.15);
+    doubleList.print(stream);
+
+
     cout << "\nSTRING LISTA:" << endl;
     list<const char*> charList;
     if(charList.isEmpty())
@@ -202,29 +214,17 @@ int main()
     int size = lista.size();
     cout << size << endl;
 
-    std::string s = "00000006";
-    std::stringstream geek(s);
-    int x = 0;
-    geek >> x;
-    cout << "Value of x : " << x << endl;
-
-    std::ofstream testfilew;
-    testfilew.open("test3.txt", std::ios::binary);
-    charList.write(testfilew);
-    testfilew.close();
 
 
-    
-    std::ifstream testfile;
-    testfile.open("test3.txt", std::ios::binary);
-    list<const char*> newlist;
-    newlist.read(testfile);
-    testfile.close();
+
+    doubleList.writetofile("test3.txt");
+
+
+
+    list<double> newlist;
+    newlist.readfromfile("test3.txt");
+    //newlist.deleteNode("alpha");
     newlist.print(stream);
-    
-    //newlist.print(stream);
 
-    //charList.~list();
-    //memtrace::mem_dump(charList, charList(sizeof));
     return 0;
 }

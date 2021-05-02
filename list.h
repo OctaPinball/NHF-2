@@ -19,6 +19,7 @@ private:
 public:
     list();
     ~list();
+    //list (list& x);
     void insertNode(const T&);
     void deleteNode(T);
     bool isEmpty();
@@ -31,6 +32,8 @@ public:
     virtual void encode8(std::ostream&, int);
     virtual std::ostream& write(std::ostream&);
     virtual std::istream& read(std::istream&);
+    virtual void writetofile(const char* filename);
+    virtual void readfromfile(const char* filename);
     class iterator
     {
 
@@ -41,7 +44,7 @@ public:
             : ptr(ptr)
         {
         }
-        
+
         iterator& operator++()
         {
             if(ptr != NULL)
