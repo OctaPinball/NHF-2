@@ -6,9 +6,8 @@
 #include <string>
 #include <sstream>
 #include <fstream>
-//#include <cstring>
 #include <bitset>
-#include <typeinfo>
+#include <exception>
 
 //#include <windows.h>
 
@@ -16,7 +15,6 @@
 #include "node.h"
 #include "list.h"
 #include "list.hpp"
-//#include "string5.h"
 
 #include "gtest_lite.h"
 

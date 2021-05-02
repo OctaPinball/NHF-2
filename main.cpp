@@ -1,8 +1,5 @@
-//#include "memtrace.h"
 #include "defs.h"
 
-
-//using namespace std;
 
 int main()
 {
@@ -15,7 +12,7 @@ int main()
 
         std::stringstream stream;
         lista.print(stream);
-        EXPECT_STREQ("A lista elemei: 1 2 3 \n", stream.str().c_str());
+        EXPECT_STREQ("A lista elemei: 1, 2, 3, \n", stream.str().c_str());
     }END
 
     TEST(list, printInt2){
@@ -26,7 +23,7 @@ int main()
 
         std::stringstream stream;
         lista.print(stream);
-        EXPECT_STREQ("A lista elemei: 1 2 3 \n", stream.str().c_str());
+        EXPECT_STREQ("A lista elemei: 1, 2, 3, \n", stream.str().c_str());
     }END
 
     TEST(list, printDouble1){
@@ -37,7 +34,7 @@ int main()
 
         std::stringstream stream;
         lista.print(stream);
-        EXPECT_STREQ("A lista elemei: 1.2 2.4 3.6 \n", stream.str().c_str());
+        EXPECT_STREQ("A lista elemei: 1.2, 2.4, 3.6, \n", stream.str().c_str());
     }END
 
     TEST(list, printDouble2){
@@ -48,7 +45,7 @@ int main()
 
         std::stringstream stream;
         lista.print(stream);
-        EXPECT_STREQ("A lista elemei: 1.2 3.6 4.4 \n", stream.str().c_str());
+        EXPECT_STREQ("A lista elemei: 1.2, 3.6, 4.4, \n", stream.str().c_str());
     }END
 
     TEST(list, printChar1){
@@ -59,7 +56,7 @@ int main()
 
         std::stringstream stream;
         lista.print(stream);
-        EXPECT_STREQ("A lista elemei: a b c \n", stream.str().c_str());
+        EXPECT_STREQ("A lista elemei: a, b, c, \n", stream.str().c_str());
     }END
 
     TEST(list, printChar2){
@@ -70,7 +67,7 @@ int main()
 
         std::stringstream stream;
         lista.print(stream);
-        EXPECT_STREQ("A lista elemei: a c d \n", stream.str().c_str());
+        EXPECT_STREQ("A lista elemei: a, c, d, \n", stream.str().c_str());
     }END
 
     TEST(list, printString1){
@@ -81,7 +78,7 @@ int main()
 
         std::stringstream stream;
         lista.print(stream);
-        EXPECT_STREQ("A lista elemei: alpha bravo charlie \n", stream.str().c_str());
+        EXPECT_STREQ("A lista elemei: alpha, bravo, charlie, \n", stream.str().c_str());
     }END
 
     TEST(list, printString2){
@@ -92,7 +89,7 @@ int main()
 
         std::stringstream stream;
         lista.print(stream);
-        EXPECT_STREQ("A lista elemei: alpha charlie delta \n", stream.str().c_str());
+        EXPECT_STREQ("A lista elemei: alpha, charlie, delta, \n", stream.str().c_str());
     }END
 
     TEST(list, printandDelete){
@@ -103,7 +100,7 @@ int main()
 
         std::stringstream stream;
         lista.print(stream);
-        EXPECT_STREQ("A lista elemei: charlie \n", stream.str().c_str());
+        EXPECT_STREQ("A lista elemei: charlie, \n", stream.str().c_str());
     }END
 
     TEST(list, printInverse){
@@ -114,7 +111,7 @@ int main()
 
         std::stringstream stream;
         lista.printInverse(stream);
-        EXPECT_STREQ("A lista elemei: delta charlie alpha \n", stream.str().c_str());
+        EXPECT_STREQ("A lista elemei: delta, charlie, alpha, \n", stream.str().c_str());
     }END
 
     TEST(list, errorDuplicate){
@@ -144,87 +141,41 @@ int main()
         EXPECT_ANY_THROW(lista.print(stream));
     }END
 
-
-
-    std::ostream & stream = std::cout;
-    cout << "INT LISTA:" << endl;
-    list<int> intList;
-    if(intList.isEmpty())
-        cout << "Ures" << endl;
-    else
-        cout << "Nem ures" << endl;
-    intList.insertNode(1);
-    intList.insertNode(2);
-    intList.insertNode(4);
-    intList.insertNode(3);
-    intList.insertNode(5);
-    intList.insertNode(34);
-    intList.insertNode(15);
-    intList.print(stream);
-    if(intList.isEmpty())
-        cout << "Ures" << endl;
-    else
-        cout << "Nem ures" << endl;
-
-
-    cout << "INT LISTA:" << endl;
-    list<double> doubleList;
-    doubleList.insertNode(1.01);
-    doubleList.insertNode(2.02);
-    doubleList.insertNode(4.4);
-    doubleList.insertNode(3.6);
-    doubleList.insertNode(5.7);
-    doubleList.insertNode(34.21);
-    doubleList.insertNode(15.15);
-    doubleList.print(stream);
-
-
-    cout << "\nSTRING LISTA:" << endl;
-    list<const char*> charList;
-    if(charList.isEmpty())
-        cout << "Ures" << endl;
-    else
-        cout << "Nem ures" << endl;
-    charList.insertNode("alpha");
-    charList.insertNode("charlie");
-    charList.insertNode("bravo");
-    charList.insertNode("echo");
-    charList.deleteNode("bravo");
-    charList.insertNode("delta");
-    charList.insertNode("foxtrot");
-    charList.insertNode("golf");
-    //charList.~list();
-    charList.print(stream);
-    if(charList.isEmpty())
-        cout << "Ures" << endl;
-    else
-        cout << "Nem ures" << endl;
-    cout << endl;
-
-    list<const char*> lista;
+    TEST(list, write){
+        list<const char*> lista;
     lista.insertNode("alpha");
     lista.insertNode("charlie");
-    lista.insertNode("bravo");
-    lista.deleteNode("bravo");
     lista.insertNode("echo");
     lista.insertNode("delta");
     lista.insertNode("foxtrot");
     lista.insertNode("golf");
-    lista.print(stream);
-    int size = lista.size();
-    cout << size << endl;
 
+        std::stringstream stream;
+        lista.write(stream);
+        EXPECT_STREQ("00000110000000000000000000000000000010000000000000000000000000000110110011010100010000000000000000000000000000000000000000000000000010000000000000000000000000000111100011010100010000000000000000000000000000000000000000000000000010000000000000000000000000000001001011010101010000000000000000000000000000000000000000000000000010000000000000000000000000001000010011010111010000000000000000000000000000000000000000000000000010000000000000000000000000001000100111010111010000000000000000000000000000000000000000000000000010000000000000000000000000001001000111010111010000000000000000000000000000000000000000000000", stream.str().c_str());
+    }END
 
+    TEST(list, read){
+        list<const char*> lista;
+        std::stringstream readstream;
+        readstream << "00000110000000000000000000000000000010000000000000000000000000000110110011010100010000000000000000000000000000000000000000000000000010000000000000000000000000000111100011010100010000000000000000000000000000000000000000000000000010000000000000000000000000000001001011010101010000000000000000000000000000000000000000000000000010000000000000000000000000001000010011010111010000000000000000000000000000000000000000000000000010000000000000000000000000001000100111010111010000000000000000000000000000000000000000000000000010000000000000000000000000001001000111010111010000000000000000000000000000000000000000000000";
+        lista.read(readstream);
+        std::stringstream stream;
+        lista.print(stream);
+        EXPECT_STREQ("A lista elemei: alpha, charlie, delta, echo, foxtrot, golf, \n", stream.str().c_str());
+    }END
 
+    TEST(list, errorWrite){
+        list<const char*> lista;
+        auto iter = lista.firstData();
+        EXPECT_ANY_THROW(iter++);
+    }END
 
-    doubleList.writetofile("test3.txt");
-
-
-
-    list<double> newlist;
-    newlist.readfromfile("test3.txt");
-    //newlist.deleteNode("alpha");
-    newlist.print(stream);
+    TEST(list, errorWrite){
+        list<const char*> lista;
+        auto iter = lista.lastData();
+        EXPECT_ANY_THROW(iter--);
+    }END
 
     return 0;
 }

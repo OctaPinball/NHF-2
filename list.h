@@ -45,22 +45,19 @@ public:
         {
         }
 
-        iterator& operator++()
-        {
-            if(ptr != NULL)
-                ptr = ptr->next;
-            return *this;
-        }
-
         iterator operator++(int)
         {
+            if(ptr->next == NULL)
+                throw std::out_of_range("Iterator kifutott a listabol!");
             iterator copy = *this; // !
-            ++(*this);
+            ptr = ptr->next;
             return copy;
         }
 
         iterator operator--(int)
         {
+            if(ptr->prev == NULL)
+                throw std::out_of_range("Iterator kifutott a listabol!");
             iterator copy = *this; // !
             ptr = ptr->prev;
             return copy;
