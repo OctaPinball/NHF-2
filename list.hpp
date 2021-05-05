@@ -313,10 +313,6 @@ void list<T>::writetofile(const char* filename)
 {
     std::ofstream file;
     file.open(filename, std::ios::binary);
-    if(!file.is_open())
-    {
-        throw ("Filet nem lehet megnyitni");
-    }
     write(file);
     file.close();
 }

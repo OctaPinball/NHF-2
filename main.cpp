@@ -165,13 +165,13 @@ int main()
         EXPECT_STREQ("A lista elemei: alpha, charlie, delta, echo, foxtrot, golf, \n", stream.str().c_str());
     }END
 
-    TEST(list, errorWrite){
+    TEST(list, iter++){
         list<const char*> lista;
         auto iter = lista.firstData();
         EXPECT_ANY_THROW(iter++);
     }END
 
-    TEST(list, errorWrite){
+    TEST(list, iter--){
         list<const char*> lista;
         auto iter = lista.lastData();
         EXPECT_ANY_THROW(iter--);
