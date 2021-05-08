@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1620232217 source:c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\main.cpp
+1620232874 source:c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\main.cpp
 	"defs.h"
 
 1619438336 c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\node.h
@@ -15,7 +15,7 @@
 	<iostream>
 	"defs.h"
 
-1620231503 c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\defs.h
+1620408083 c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\defs.h
 	<iostream>
 	<string>
 	<sstream>
@@ -24,7 +24,6 @@
 	<exception>
 	"persistence.h"
 	"node.h"
-	"list.h"
 	"list.hpp"
 	"gtest_lite.h"
 
@@ -71,7 +70,7 @@
 	<regex>
 	"memtrace.h"
 
-1620205894 c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\list.hpp
+1620467024 c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\list.hpp
 
 1616617789 source:c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\string5.cpp
 	<iostream>

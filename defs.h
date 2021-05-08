@@ -8,12 +8,13 @@
 #include <fstream>
 #include <bitset>
 #include <exception>
+//#include <typeinfo>
 
 //#include <windows.h>
 
 #include "persistence.h"
 #include "node.h"
-#include "list.h"
+//#include "list.h"
 #include "list.hpp"
 
 #include "gtest_lite.h"
