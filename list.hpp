@@ -6,19 +6,20 @@ using std::cout;
 using std::endl;
 
 
-/// Delete node from list
-/// Detailed explanation
-/// @param dataIn Data of the node
-/// @warning List must have at least one node!
-/// @warning Must use existing data!
+/// Lista osztálya
+/** A lista pár kiemelt elemére mutató pointer, illetve a listát kezelő függvények kaptak itt helyet.
+**/
 template <typename T>
 class list : public persistence
 {
 protected:
 
 private:
+    /// Első strázsára mutató pointer.
     node<T>* first;
+    /// Utolsó strázsára mutató pointer.
     node<T>* last;
+    /// Újonnan hozzáadott listaelemre mutató pointer. insertNode() és positionArrivalNode() függvények használják.
     node<T>* arrival;
     list(const list&);
     bool isEmpty();
@@ -42,17 +43,24 @@ public:
     virtual std::istream& read(std::istream&);
     virtual void writetofile(const char* filename);
     virtual void readfromfile(const char* filename);
+
+    /// Az iterátor osztálya
+    /** Az iterátort kezelő függvények itt kaptak helyet. Ezeknek nagyrésze operátor függvény.
+    **/
     class iterator
     {
 
     public:
+        /// Az iterátor listaelemre mutató pointere.
         node<T> * ptr;
 
+        /// Az iterátor konstruktora
         iterator(node<T> * ptr = NULL)
             : ptr(ptr)
-        {
-        }
-
+        {}
+        /// Az iterátor ++ operátorának függvénye.
+        /// A következő listaelemre állítja át az iterátort.
+        ///@returns iterator
         iterator operator++(int)
         {
             if(ptr->next == NULL)
@@ -62,6 +70,9 @@ public:
             return copy;
         }
 
+        /// Az iterátor -- operátorának függvénye.
+        /// Az előző listaelemre állítja át az iterátort.
+        ///@returns iterator
         iterator operator--(int)
         {
             if(ptr->prev == NULL)
@@ -71,23 +82,41 @@ public:
             return copy;
         }
 
+        /// Az iterátor * operátorának függvénye.
+        /// Visszaadja az adott listaelem adatát.
+        ///@returns T a listaelem adata
         T& operator*() const
         {
             return ptr->data;
         }
 
+        /// Az iterátor == operátorának függvénye.
+        /// Vizsgálja, hogy két iterátor egyenlő-e.
+        ///@returns bool
         bool operator==(iterator a) const
         {
             return ptr == a.ptr;
         }
+
+        /// Az iterátor != operátorának függvénye.
+        /// Vizsgálja, hogy két iterátor különböző-e (nem egyenlő).
+        ///@returns bool
         bool operator!=(iterator a) const
         {
             return ptr != a.ptr;
         }
+
+        /// Az iterátor < operátorának függvénye.
+        /// Vizsgálja, két iterátor egyenlőtlenségét.
+        ///@returns bool
         bool operator<(iterator a) const
         {
             return ptr < a.ptr;
         }
+
+        /// Az iterátor < operátorának függvénye.
+        /// Vizsgálja, két iterátor egyenlőtlenségét.
+        ///@returns bool
         bool operator>(iterator a) const
         {
             return ptr > a.ptr;
@@ -95,21 +124,25 @@ public:
 
     };
 
+    /// Az iterátort az első strázsára állítja.
     iterator begin()
     {
         return iterator(first);
     }
 
+    /// Az iterátort az utolsó strázsára állítja.
     iterator end()
     {
         return iterator(last);
     }
 
+    /// Az iterátort az első listaelemre állítja.
     iterator firstData()
     {
         return iterator(first->next);
     }
 
+    /// Az iterátort az utolsó listaelemre állítja.
     iterator lastData()
     {
         return iterator(last->prev);
@@ -145,7 +178,8 @@ list<T>::~list()
     delete last;
 }
 
-/// Megnezi, hogy a lista ures-e.
+/// Megnézi, hogy a lista üres-e.
+/// @returns bool érték, mely igaz, ha a
 template <typename T>
 bool list<T>::isEmpty()
 {
@@ -173,10 +207,11 @@ bool list<T>::dataExist(T dataIn)
 
 
 /// Elemet töröl a listából.
-///
-/// @param dataIn Data of the node
-/// @warning List must have at least one node!
-/// @warning Must use existing data!
+/** A paraméterként megadott elemet törli a listából, figyelve közben a kivételekre (lentebb).
+/// @param dataIn A törlendő listaelem adata.
+/// @warning Muszáj a litának legalább egy adattal rendelkeznie!
+/// @warning Muszáj listában szereplő adatot megadni paraméterként!
+**/
 template <typename T>
 void list<T>::deleteNode(T dataIn)
 {
@@ -199,9 +234,9 @@ void list<T>::deleteNode(T dataIn)
     }
 }
 
-/// Uj listaelemet ad a listahoz.
-/// Letrehoz egy listaelemet a parameterkent kapott adattal, majd tovabbadja a positionArrivalNode() fuggvenynek, amely beilleszti a listaba.
-/// @param dataIn Leendo listaelem adata.
+/// Új listaelemet ad a listához.
+/// Létrehoz egy listaelemet a parameterkent kapott adattal, majd továbbadja a positionArrivalNode() függvénynek, amely beilleszti a listába.
+/// @param dataIn Leendő listaelem adata.
 template <typename T>
 void list<T>::insertNode(const T& dataIn)
 {
@@ -356,7 +391,7 @@ void list<T>::insertAtLast(const T& dataIn)
 
 /// A lista elemeit kiírja a paraméterként kapott ostream-re.
 /** A lista elemeit a függvény az iterátor segítségével járja be, és írja ki az összes listaelemet a paraméterként kapott ostream-re.
-@parameter os ide írja ki a függvény a listaelemeket
+@param os ide írja ki a függvény a listaelemeket
 @warning Muszáj, hogy a lista rendelkezzen legalább egy elemmel.
 **/
 template <typename T>
@@ -426,8 +461,8 @@ int list<T>::size()
 
 /// A paraméterként kapott integert írja át binárisan, és írja ki a paraméterként kapott ofstream-re.
 /** A paraméterként kapott integert írja át binárisan (maximum 8 helyiérték), majd ezt írja ki a paraméterként kapott ostream-re.
-@parameter stream ofstream melyre a függvény kiírja a bináris értéket.
-@parameter number int érték melyet a függvény átalakít.
+@param stream ofstream melyre a függvény kiírja a bináris értéket.
+@param number int érték melyet a függvény átalakít.
 **/
 template <typename T>
 void list<T>::encode8(std::ostream& stream, int number)
@@ -510,10 +545,10 @@ std::ostream& list<const char*>::write(std::ostream& stream)
 }
 */
 
-/// A paraméterként kapott integert írja át binárisan, és írja ki a paraméterként kapott ofstream-re.
-/** A paraméterként kapott integert írja át binárisan (maximum 8 helyiérték), majd ezt írja ki a paraméterként kapott ostream-re.
-@parameter stream ofstream melyre a függvény kiírja a bináris értéket.
-@parameter number int érték melyet a függvény átalakít.
+/// A paraméterként kapot istream-ből kiolvassa majd integerré alakít 8 karaktert.
+/** A paraméterként kapot istream-ből kiolvassa majd integerré alakít 8 karaktert, majd ezzel az integerrel visszatér a függvény.
+@parameter stream istream melyről a függvény beolvassa binárisan az integert.
+@returns az átalakított maximum 8 helyiértékű integert adja vissza.
 **/
 template <typename T>
 int list <T>::decode8(std::istream& stream)
@@ -561,6 +596,10 @@ std::istream& list <T>::read(std::istream& stream)
     return stream;
 }
 
+/// Fájlba írja a listát.
+/** Fájlba írja a listát a write() segítségével. Előtte megnyitja a praméterként kapott fájlnévvel ellátott fájlt, majd a kiírás után bezárja azt.
+@parameter filename a fájl nevét tartalmazza
+**/
 template <typename T>
 void list<T>::writetofile(const char* filename)
 {
@@ -570,6 +609,11 @@ void list<T>::writetofile(const char* filename)
     file.close();
 }
 
+/// Fájlból olvas be listát.
+/** Fájlból olvas be listát a read() függvény segítségével. A paraméterként kapott fájlnévvel ellátott fájlt megnyitja előtte, illetve utána bezárja azt.
+@parameter filename a fájl nevét tartalmazza.
+@warning A függvény amennyiben nem tudja megynitni a fájlt, kivételt dob.
+**/
 template <typename T>
 void list<T>::readfromfile(const char* filename)
 {

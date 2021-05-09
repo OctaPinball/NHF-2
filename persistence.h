@@ -3,10 +3,12 @@
 
 #include "defs.h"
 
+/// A perzisztenciáért felelős osztály
+/** Itt kaptak helyet a perzisztenciával foglalkozó függvények.
+**/
 class persistence
 {
     public:
-        //persistence();
         virtual std::ostream& write(std::ostream&) = 0;
         virtual std::istream& read(std::istream&) = 0;
         virtual int decode8(std::istream&) = 0;
