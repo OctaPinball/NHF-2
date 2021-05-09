@@ -19,20 +19,20 @@ protected:
 private:
     node<T>* first;
     node<T>* last;
+    node<T>* arrival;
     list(const list&);
     bool isEmpty();
     bool dataExist(T);
+    void positionArrivalNode();
 
 
 public:
     list();
     ~list();
-    //list (list& x);
     void insertNode(const T&);
     void deleteNode(T);
-    //bool isEmpty();
-    void print(std::ostream& os);
-    void printInverse(std::ostream& os);
+    void print(std::ostream&);
+    void printInverse(std::ostream&);
     void insertAtFirst(const T&);
     void insertAtLast(const T&);
     int size();
@@ -121,6 +121,7 @@ public:
 template <typename T>
 list<T>::list()
 {
+    arrival = NULL;
     first = new node<T>;
     last = new node<T>;
     first->next = last;
@@ -195,100 +196,123 @@ void list<T>::deleteNode(T dataIn)
 template <typename T>
 void list<T>::insertNode(const T& dataIn)
 {
-
-    if(dataExist(dataIn))
-    {
-        throw std::invalid_argument("Van mar ilyen adat a listaban!");
-    }
-
-    if(isEmpty()) //if there is no nodes in the list simply insert at beginning
-    {
-        node<T> * newPtr = new node<T>(dataIn);
-        first->next = newPtr;
-        newPtr->prev = first;
-        newPtr->next = last;
-        last->prev = newPtr;
-    }
-    else  //otherwise
-    {
-
-        if(dataIn < first->next->data) //if the data of the new object is less than than the data of first node in list insert at beginning
-        {
-            insertAtFirst(dataIn);
-        }
-        else if(dataIn >= last->prev->data) //if the data of the new object is greater than than the data of last node in list insert at end
-        {
-            insertAtLast(dataIn);
-        }
-        else //the new node is being inserted in order but not at the beginning or end
-
-        {
-            auto iter = firstData();
-            node<T> * newPtr = new node<T>(dataIn); //creates new node
-            while(iter.ptr->next != last) //runs until the end of the list is reached
-            {
-                if((newPtr->data < iter.ptr->next->data) && (newPtr->data > iter.ptr->data)) //if the data of the new node is less the data in the next node and greater than the data in the current node, insert after current node
-                {
-                    newPtr->next = iter.ptr->next;
-                    newPtr->prev = iter.ptr;
-                    iter.ptr->next->prev = newPtr;
-                    iter.ptr->next = newPtr;
-                    break;
-                }
-                iter++; //moves to the next node in the list
-            }
-        }
-    }
+    node<T> * newPtr = new node<T>(dataIn);
+    arrival = newPtr;
+    positionArrivalNode();
 }
 
 template <>
-void list<const char*>::insertNode(char const* dataIn)
+void list<const char*>::positionArrivalNode()
 {
 
-    if(dataExist(dataIn))
+    if(dataExist(arrival->data))
     {
+        delete arrival;
+        arrival = NULL;
         throw std::invalid_argument("Van mar ilyen adat a listaban!");
     }
 
     if(isEmpty()) //if there is no nodes in the list simply insert at beginning
     {
-        node<const char*> * newPtr = new node<const char*>(dataIn);
-        first->next = newPtr;
-        newPtr->prev = first;
-        newPtr->next = last;
-        last->prev = newPtr;
+        first->next = arrival;
+        arrival->prev = first;
+        arrival->next = last;
+        last->prev = arrival;
     }
     else  //otherwise
     {
 
-        if(strcmp(dataIn, first->next->data) < 0) //if the data of the new object is less than than the data of first node in list insert at beginning
+        if(strcmp(arrival->data, first->next->data) < 0) //if the data of the new object is less than than the data of first node in list insert at beginning
         {
-            insertAtFirst(dataIn);
+            first->next->prev = arrival;
+            arrival->next = first->next;
+            arrival->prev = first;
+            first->next = arrival;
         }
-        else if(strcmp(dataIn, last->prev->data) >= 0) //if the data of the new object is greater than than the data of last node in list insert at end
+        else if(strcmp(arrival->data, last->prev->data) >= 0) //if the data of the new object is greater than than the data of last node in list insert at end
         {
-            insertAtLast(dataIn);
+            last->prev->next = arrival;
+            arrival->prev = last->prev;
+            arrival->next = last;
+            last->prev = arrival;
         }
         else //the new node is being inserted in order but not at the beginning or end
 
         {
             auto iter = firstData();
-            node<const char*> * newPtr = new node<const char*>(dataIn); //creates new node
             while(iter.ptr->next != last) //runs until the end of the list is reached
             {
-                if((strcmp(newPtr->data, iter.ptr->next->data) < 0) && (strcmp(newPtr->data, iter.ptr->data)) > 0) //if the data of the new node is less the data in the next node and greater than the data in the current node, insert after current node
+                if((strcmp(arrival->data, iter.ptr->next->data) < 0) && (strcmp(arrival->data, iter.ptr->data)) > 0) //if the data of the new node is less the data in the next node and greater than the data in the current node, insert after current node
                 {
-                    newPtr->next = iter.ptr->next;
-                    newPtr->prev = iter.ptr;
-                    iter.ptr->next->prev = newPtr;
-                    iter.ptr->next = newPtr;
+                    arrival->next = iter.ptr->next;
+                    arrival->prev = iter.ptr;
+                    iter.ptr->next->prev = arrival;
+                    iter.ptr->next = arrival;
                     break;
                 }
                 iter++; //moves to the next node in the list
             }
         }
     }
+    arrival = NULL;
 }
+
+template <typename T>
+void list<T>::positionArrivalNode()
+{
+
+    if(dataExist(arrival->data))
+    {
+        delete arrival;
+        arrival = NULL;
+        throw std::invalid_argument("Van mar ilyen adat a listaban!");
+    }
+
+    if(isEmpty()) //if there is no nodes in the list simply insert at beginning
+    {
+        first->next = arrival;
+        arrival->prev = first;
+        arrival->next = last;
+        last->prev = arrival;
+    }
+    else  //otherwise
+    {
+
+        if(arrival->data < first->next->data) //if the data of the new object is less than than the data of first node in list insert at beginning
+        {
+            first->next->prev = arrival;
+            arrival->next = first->next;
+            arrival->prev = first;
+            first->next = arrival;
+        }
+        else if(arrival->data >= last->prev->data) //if the data of the new object is greater than than the data of last node in list insert at end
+        {
+            last->prev->next = arrival;
+            arrival->prev = last->prev;
+            arrival->next = last;
+            last->prev = arrival;
+        }
+        else //the new node is being inserted in order but not at the beginning or end
+
+        {
+            auto iter = firstData();
+            while(iter.ptr->next != last) //runs until the end of the list is reached
+            {
+                if((arrival->data < iter.ptr->next->data) && (arrival->data > iter.ptr->data)) //if the data of the new node is less the data in the next node and greater than the data in the current node, insert after current node
+                {
+                    arrival->next = iter.ptr->next;
+                    arrival->prev = iter.ptr;
+                    iter.ptr->next->prev = arrival;
+                    iter.ptr->next = arrival;
+                    break;
+                }
+                iter++; //moves to the next node in the list
+            }
+        }
+    }
+    arrival = NULL;
+}
+
 
 
 template <typename T>
@@ -372,13 +396,13 @@ int list<T>::size()
 template <typename T>
 void list<T>::encode8(std::ostream& stream, int number)
 {
-        unsigned char* numberchar = (unsigned char*) &number;
+    unsigned char* numberchar = (unsigned char*) &number;
 
-        for (int i = 0; i < (int)sizeof(int); i++)
-        {
-            std::bitset<8> x(numberchar[i]);
-            stream << x;
-        }
+    for (int i = 0; i < (int)sizeof(int); i++)
+    {
+        std::bitset<8> x(numberchar[i]);
+        stream << x;
+    }
 }
 
 template <typename T>
@@ -442,17 +466,17 @@ std::ostream& list<const char*>::write(std::ostream& stream)
 
 template <typename T>
 int list <T>::decode8(std::istream& stream)
- {
+{
     unsigned char numberchar[sizeof(int)];
 
     for (int i = 0; i < (int)sizeof(int); i++)
     {
-            std::bitset<8> z;
-            stream >> z;
-            numberchar[i] = (unsigned char)z.to_ulong();
+        std::bitset<8> z;
+        stream >> z;
+        numberchar[i] = (unsigned char)z.to_ulong();
     }
     return *(int*)numberchar;
- }
+}
 
 template <typename T>
 std::istream& list <T>::read(std::istream& stream)

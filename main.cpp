@@ -73,12 +73,12 @@ int main()
     TEST(list, printString1){
         list<const char*> lista;
         lista.insertNode("alpha");
-        lista.insertNode("bravo");
+        lista.insertNode("ab");
         lista.insertNode("charlie");
 
         std::stringstream stream;
         lista.print(stream);
-        EXPECT_STREQ("A lista elemei: alpha, bravo, charlie, \n", stream.str().c_str());
+        EXPECT_STREQ("A lista elemei: ab, alpha, charlie, \n", stream.str().c_str());
     }END
 
     TEST(list, printString2){
@@ -140,30 +140,40 @@ int main()
         std::stringstream stream;
         EXPECT_ANY_THROW(lista.print(stream));
     }END
+    TEST(list, write_and_read_file_int){
+    list<int> lista;
+    lista.insertNode(1);
+    lista.insertNode(3);
+    lista.insertNode(2);
+    lista.insertNode(4);
+    lista.insertNode(6);
+    lista.insertNode(5);
+    lista.writetofile("inttest.txt");
+    list<int> lista2;
+    lista2.readfromfile("inttest.txt");
 
-    TEST(list, write){
-        list<const char*> lista;
+        std::stringstream stream;
+        lista2.print(stream);
+        EXPECT_STREQ("A lista elemei: 1, 2, 3, 4, 5, 6, \n", stream.str().c_str());
+    }END
+
+    TEST(list, write_and_read_file_const_char){
+    list<const char*> lista;
     lista.insertNode("alpha");
     lista.insertNode("charlie");
+    lista.insertNode("bravo");
     lista.insertNode("echo");
     lista.insertNode("delta");
     lista.insertNode("foxtrot");
-    lista.insertNode("golf");
+    lista.writetofile("chartest.txt");
+    list<const char*> lista2;
+    lista2.readfromfile("chartest.txt");
 
         std::stringstream stream;
-        lista.write(stream);
-        EXPECT_STREQ("00000110000000000000000000000000000010000000000000000000000000000110110011010100010000000000000000000000000000000000000000000000000010000000000000000000000000000111100011010100010000000000000000000000000000000000000000000000000010000000000000000000000000000001001011010101010000000000000000000000000000000000000000000000000010000000000000000000000000001000010011010111010000000000000000000000000000000000000000000000000010000000000000000000000000001000100111010111010000000000000000000000000000000000000000000000000010000000000000000000000000001001000111010111010000000000000000000000000000000000000000000000", stream.str().c_str());
+        lista2.print(stream);
+        EXPECT_STREQ("A lista elemei: alpha, bravo, charlie, delta, echo, foxtrot, \n", stream.str().c_str());
     }END
 
-    TEST(list, read){
-        list<const char*> lista;
-        std::stringstream readstream;
-        readstream << "00000110000000000000000000000000000010000000000000000000000000000110110011010100010000000000000000000000000000000000000000000000000010000000000000000000000000000111100011010100010000000000000000000000000000000000000000000000000010000000000000000000000000000001001011010101010000000000000000000000000000000000000000000000000010000000000000000000000000001000010011010111010000000000000000000000000000000000000000000000000010000000000000000000000000001000100111010111010000000000000000000000000000000000000000000000000010000000000000000000000000001001000111010111010000000000000000000000000000000000000000000000";
-        lista.read(readstream);
-        std::stringstream stream;
-        lista.print(stream);
-        EXPECT_STREQ("A lista elemei: alpha, charlie, delta, echo, foxtrot, golf, \n", stream.str().c_str());
-    }END
 
     TEST(list, iter++){
         list<const char*> lista;

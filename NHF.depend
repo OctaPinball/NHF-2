@@ -28,7 +28,7 @@
 	"list.hpp"
 	"gtest_lite.h"
 
-1617804116 c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\memtrace.h
+1620562531 c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\memtrace.h
 	<new>
 	<cstdio>
 	<stdlib.h>
@@ -50,7 +50,7 @@
 	<iterator>
 	<regex>
 
-1617804107 source:c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\memtrace.cpp
+1620562531 source:c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\memtrace.cpp
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -84,4 +84,70 @@
 
 1619982186 c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\persistence.h
 	"defs.h"
+
+1620562531 source:c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf_2\memtrace.cpp
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	<ctype.h>
+	"memtrace.h"
+
+1620562531 c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf_2\memtrace.h
+	<new>
+	<cstdio>
+	<stdlib.h>
+	<iostream>
+	<fstream>
+	<sstream>
+	<vector>
+	<list>
+	<map>
+	<algorithm>
+	<functional>
+	<memory>
+	<iomanip>
+	<locale>
+	<typeinfo>
+	<ostream>
+	<stdexcept>
+	<ctime>
+	<iterator>
+	<regex>
+
+1620571896 source:c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf_2\main.cpp
+	"defs.h"
+
+1620569428 c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf_2\defs.h
+	<iostream>
+	<cstring>
+	<sstream>
+	<fstream>
+	<bitset>
+	<exception>
+	"persistence.h"
+	"node.h"
+	"list.hpp"
+	"gtest_lite.h"
+
+1620562531 c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf_2\persistence.h
+	"defs.h"
+
+1620562531 c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf_2\node.h
+	"defs.h"
+
+1620571930 c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf_2\list.hpp
+
+1620562531 c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf_2\gtest_lite.h
+	<iostream>
+	<cassert>
+	<cmath>
+	<cstring>
+	<limits>
+	<cstdlib>
+	<string>
+	<fstream>
+	<iterator>
+	<regex>
+	"memtrace.h"
 
