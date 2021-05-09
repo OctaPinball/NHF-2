@@ -33,8 +33,8 @@ public:
     void deleteNode(T);
     void print(std::ostream&);
     void printInverse(std::ostream&);
-    void insertAtFirst(const T&);
-    void insertAtLast(const T&);
+    //void insertAtFirst(const T&);
+    //void insertAtLast(const T&);
     int size();
     virtual int decode8(std::istream&);
     virtual void encode8(std::ostream&, int);
@@ -117,7 +117,8 @@ public:
 
 };
 
-
+/// Lista konstruktora.
+/// Létrehozza a strázsákat és értéket ad a pointereknek.
 template <typename T>
 list<T>::list()
 {
@@ -128,7 +129,8 @@ list<T>::list()
     last->prev = first;
 }
 
-
+/// Lista destruktora.
+/// Lebontja a listát. Iterátorral végigmegy a lista elemein, és egyesével törli őket.
 template <typename T>
 list<T>::~list()
 {
@@ -143,7 +145,7 @@ list<T>::~list()
     delete last;
 }
 
-
+/// Megnezi, hogy a lista ures-e.
 template <typename T>
 bool list<T>::isEmpty()
 {
@@ -152,6 +154,10 @@ bool list<T>::isEmpty()
     return false;
 }
 
+/// Ellenörzi, hogy a paraméterként kapott adat már létezik-e a listában.
+/// Iterátor segítségével végigmegy a listán. Amennyiben talál ugyanolyan elemet, igaz értékkel tér vissza.
+/// @param dataIn Adat amelyet vizsgál a függvény
+/// @returns Bool érték, ami igaz, ha a listában már megtalálható a paraméterként kapott dataIn, ellenkező esetben hamis értékkel tér vissza.
 template <typename T>
 bool list<T>::dataExist(T dataIn)
 {
@@ -166,8 +172,8 @@ bool list<T>::dataExist(T dataIn)
 }
 
 
-/// Delete node from list
-/// Detailed explanation
+/// Elemet töröl a listából.
+///
 /// @param dataIn Data of the node
 /// @warning List must have at least one node!
 /// @warning Must use existing data!
@@ -193,6 +199,9 @@ void list<T>::deleteNode(T dataIn)
     }
 }
 
+/// Uj listaelemet ad a listahoz.
+/// Letrehoz egy listaelemet a parameterkent kapott adattal, majd tovabbadja a positionArrivalNode() fuggvenynek, amely beilleszti a listaba.
+/// @param dataIn Leendo listaelem adata.
 template <typename T>
 void list<T>::insertNode(const T& dataIn)
 {
@@ -201,6 +210,8 @@ void list<T>::insertNode(const T& dataIn)
     positionArrivalNode();
 }
 
+/// Az újonnan létrehozott listaelemet (const char*) helyezi el a listában.
+/// Részletes leírás megtekinthető a positionArrivalNode() általános értékekre vett függvényvariációnál.
 template <>
 void list<const char*>::positionArrivalNode()
 {
@@ -212,37 +223,37 @@ void list<const char*>::positionArrivalNode()
         throw std::invalid_argument("Van mar ilyen adat a listaban!");
     }
 
-    if(isEmpty()) //if there is no nodes in the list simply insert at beginning
+    if(isEmpty())
     {
         first->next = arrival;
         arrival->prev = first;
         arrival->next = last;
         last->prev = arrival;
     }
-    else  //otherwise
+    else
     {
 
-        if(strcmp(arrival->data, first->next->data) < 0) //if the data of the new object is less than than the data of first node in list insert at beginning
+        if(strcmp(arrival->data, first->next->data) < 0)
         {
             first->next->prev = arrival;
             arrival->next = first->next;
             arrival->prev = first;
             first->next = arrival;
         }
-        else if(strcmp(arrival->data, last->prev->data) >= 0) //if the data of the new object is greater than than the data of last node in list insert at end
+        else if(strcmp(arrival->data, last->prev->data) >= 0)
         {
             last->prev->next = arrival;
             arrival->prev = last->prev;
             arrival->next = last;
             last->prev = arrival;
         }
-        else //the new node is being inserted in order but not at the beginning or end
+        else
 
         {
             auto iter = firstData();
-            while(iter.ptr->next != last) //runs until the end of the list is reached
+            while(iter.ptr->next != last)
             {
-                if((strcmp(arrival->data, iter.ptr->next->data) < 0) && (strcmp(arrival->data, iter.ptr->data)) > 0) //if the data of the new node is less the data in the next node and greater than the data in the current node, insert after current node
+                if((strcmp(arrival->data, iter.ptr->next->data) < 0) && (strcmp(arrival->data, iter.ptr->data)) > 0)
                 {
                     arrival->next = iter.ptr->next;
                     arrival->prev = iter.ptr;
@@ -250,13 +261,19 @@ void list<const char*>::positionArrivalNode()
                     iter.ptr->next = arrival;
                     break;
                 }
-                iter++; //moves to the next node in the list
+                iter++;
             }
         }
     }
     arrival = NULL;
 }
 
+/// Az újonnan létrehozott listaelemet helyezi el a listában.
+/** A listaelemet beilleszti a listába úgy, hogy a lista rendezett legyen.
+ Előszőr megvizsgálja a, hogy a beilleszteni kívánt elem létezik-e már. Ezt a dataExist() függvénnyel teszi meg. Amennyiben a listaelem már létezik a függvény törli a beilleszteni kívánt listaelemet és kivételt dob.
+ Ezek után megvizsgálja azokat a különleges eseteket amikor nincs elem a listában, illetve amikor a listaelem a lista valamely végére kerülne.
+ Ha a listaelem nem felelt meg a fentebb említett feltételeknek, akkor az iterátor segítségével a függvény megtalálja a listaelem helyes pozícióját.
+ @warning Muszáj még nem létező elemet használni.**/
 template <typename T>
 void list<T>::positionArrivalNode()
 {
@@ -268,37 +285,37 @@ void list<T>::positionArrivalNode()
         throw std::invalid_argument("Van mar ilyen adat a listaban!");
     }
 
-    if(isEmpty()) //if there is no nodes in the list simply insert at beginning
+    if(isEmpty())
     {
         first->next = arrival;
         arrival->prev = first;
         arrival->next = last;
         last->prev = arrival;
     }
-    else  //otherwise
+    else
     {
 
-        if(arrival->data < first->next->data) //if the data of the new object is less than than the data of first node in list insert at beginning
+        if(arrival->data < first->next->data)
         {
             first->next->prev = arrival;
             arrival->next = first->next;
             arrival->prev = first;
             first->next = arrival;
         }
-        else if(arrival->data >= last->prev->data) //if the data of the new object is greater than than the data of last node in list insert at end
+        else if(arrival->data >= last->prev->data)
         {
             last->prev->next = arrival;
             arrival->prev = last->prev;
             arrival->next = last;
             last->prev = arrival;
         }
-        else //the new node is being inserted in order but not at the beginning or end
+        else
 
         {
             auto iter = firstData();
-            while(iter.ptr->next != last) //runs until the end of the list is reached
+            while(iter.ptr->next != last)
             {
-                if((arrival->data < iter.ptr->next->data) && (arrival->data > iter.ptr->data)) //if the data of the new node is less the data in the next node and greater than the data in the current node, insert after current node
+                if((arrival->data < iter.ptr->next->data) && (arrival->data > iter.ptr->data))
                 {
                     arrival->next = iter.ptr->next;
                     arrival->prev = iter.ptr;
@@ -306,7 +323,7 @@ void list<T>::positionArrivalNode()
                     iter.ptr->next = arrival;
                     break;
                 }
-                iter++; //moves to the next node in the list
+                iter++;
             }
         }
     }
@@ -314,7 +331,7 @@ void list<T>::positionArrivalNode()
 }
 
 
-
+/*
 template <typename T>
 void list<T>::insertAtFirst(const T& dataIn)
 {
@@ -334,7 +351,14 @@ void list<T>::insertAtLast(const T& dataIn)
     newPtr->next = last;
     last->prev = newPtr;
 }
+*/
 
+
+/// A lista elemeit kiírja a paraméterként kapott ostream-re.
+/** A lista elemeit a függvény az iterátor segítségével járja be, és írja ki az összes listaelemet a paraméterként kapott ostream-re.
+@parameter os ide írja ki a függvény a listaelemeket
+@warning Muszáj, hogy a lista rendelkezzen legalább egy elemmel.
+**/
 template <typename T>
 void list<T>::print(std::ostream& os)
 {
@@ -347,17 +371,20 @@ void list<T>::print(std::ostream& os)
     {
         auto iter = firstData();
         os << "A lista elemei: ";
-        while(iter.ptr != last) //prints until the end of the list is reached
+        while(iter.ptr != last)
         {
             os << iter.ptr->data << ", ";
-            iter++; //moves to next node in list
+            iter++;
         }
-        //cout << os;
         os << endl;
     }
 }
 
-
+/// A lista elemeit kiírja fordított sorrendben a paraméterként kapott ostream-re.
+/** A lista elemeit a függvény az iterátor segítségével járja be fordított sorrendben, és írja ki az összes listaelemet fordított sorrendben a paraméterként kapott ostream-re.
+@parameter os ide írja ki a függvény a listaelemeket fordított sorrendben.
+@warning Muszáj, hogy a lista rendelkezzen legalább egy elemmel.
+**/
 template <typename T>
 void list<T>::printInverse(std::ostream& os)
 {
@@ -379,6 +406,10 @@ void list<T>::printInverse(std::ostream& os)
     }
 }
 
+/// A lista elemeinek számát meghatározó függvény.
+/** A listát az iterátor segítségével bejárja, és meghatározza az elemeinek a számát.
+@returns integer ami a lista elemeinek a számát veszi fel.
+**/
 template <typename T>
 int list<T>::size()
 {
@@ -393,6 +424,11 @@ int list<T>::size()
 
 }
 
+/// A paraméterként kapott integert írja át binárisan, és írja ki a paraméterként kapott ofstream-re.
+/** A paraméterként kapott integert írja át binárisan (maximum 8 helyiérték), majd ezt írja ki a paraméterként kapott ostream-re.
+@parameter stream ofstream melyre a függvény kiírja a bináris értéket.
+@parameter number int érték melyet a függvény átalakít.
+**/
 template <typename T>
 void list<T>::encode8(std::ostream& stream, int number)
 {
@@ -405,6 +441,17 @@ void list<T>::encode8(std::ostream& stream, int number)
     }
 }
 
+/// Paraméterként kapott ostream-re kiírja a listát olyan rendszerben amiből újra fel lehet azt később építeni.
+/** Paraméterként kapott ostream-re kiírja a listát (binárisan) olyan rendszerben amiből újra fel lehet azt később építeni.
+A függvény először meghatározza a lista elemeinek a számát és elküldi az encode8() függvénynek, hogy binárissá alakítsa.
+Ezek után minden egyes listaelemre meghatározza, hogy az adata mennyi karaktert tesz ki, majd ez után az encode8() függvény
+hívásával binárisá alakítja és kiírja ostream-re. Utána a listaelem adatát alakítja binárisá és írja ki ostreamre. Az utolsó két
+lépést addig ismétli ameddig a lista végére nem ér.
+@parameter stream ostream melyre a függvény kiírja a listát binárisan.
+@returns a paraméterként kapot ostream-el tér vissza.
+@warning Muszáj, hogy a listának legyen legalább egy eleme.
+@note Kiírás: <lista elemszáma> [<listaelem karakterszáma> <listaelem adata> <listaelem karakterszáma> <listaelem adata> stb...]
+**/
 template <typename T>
 std::ostream& list<T>::write(std::ostream& stream)
 {
@@ -463,7 +510,11 @@ std::ostream& list<const char*>::write(std::ostream& stream)
 }
 */
 
-
+/// A paraméterként kapott integert írja át binárisan, és írja ki a paraméterként kapott ofstream-re.
+/** A paraméterként kapott integert írja át binárisan (maximum 8 helyiérték), majd ezt írja ki a paraméterként kapott ostream-re.
+@parameter stream ofstream melyre a függvény kiírja a bináris értéket.
+@parameter number int érték melyet a függvény átalakít.
+**/
 template <typename T>
 int list <T>::decode8(std::istream& stream)
 {
@@ -478,6 +529,17 @@ int list <T>::decode8(std::istream& stream)
     return *(int*)numberchar;
 }
 
+
+/// Paraméterként kapott istream-ből beolvassa és felépíti a listát.
+/** Paraméterként kapott istream-ből beolvassa és felépíti a listát.
+A függvény először beolvassa a lista elemeinek a számát a decode8() függvény segítségével.
+Ezután beolvassa a következő listaelem karakszámát a decode8() függvény segítségével.
+Utána a listaelem adatát olvassa be és hozza létre az insertNode() segítségvel. Az utolsó két
+lépést addig ismétli ameddig a lista fel nem épül teljesen (ezt segítí az elején beolvasott lista elemszám).
+@parameter stream istream melyről a függvény beolvassa a listát binárisan.
+@returns a paraméterként kapot istream-el tér vissza.
+@note Beolvasás: <lista elemszáma> [<listaelem karakterszáma> <listaelem adata> <listaelem karakterszáma> <listaelem adata> stb...]
+**/
 template <typename T>
 std::istream& list <T>::read(std::istream& stream)
 {

@@ -6,9 +6,9 @@ int main()
 
     TEST(list, printInt1){
         list<int> lista;
-        lista.insertNode(1);
-        lista.insertNode(2);
         lista.insertNode(3);
+        lista.insertNode(2);
+        lista.insertNode(1);
 
         std::stringstream stream;
         lista.print(stream);
@@ -42,6 +42,8 @@ int main()
         lista.insertNode(1.2);
         lista.insertNode(4.4);
         lista.insertNode(3.6);
+        lista.insertNode(2.2);
+        lista.deleteNode(2.2);
 
         std::stringstream stream;
         lista.print(stream);
@@ -140,6 +142,28 @@ int main()
         std::stringstream stream;
         EXPECT_ANY_THROW(lista.print(stream));
     }END
+
+    TEST(list, errorPrintInverse){
+        list<const char*> lista;
+
+        std::stringstream stream;
+        EXPECT_ANY_THROW(lista.printInverse(stream));
+    }END
+
+    TEST(list, errorWrite){
+        list<const char*> lista;
+
+        std::stringstream stream;
+        EXPECT_ANY_THROW(lista.write(stream));
+    }END
+
+    TEST(list, errorOpenFile){
+        list<const char*> lista;
+
+        std::stringstream stream;
+        EXPECT_ANY_THROW(lista.readfromfile("doesntexist.txt"));
+    }END
+
     TEST(list, write_and_read_file_int){
     list<int> lista;
     lista.insertNode(1);
@@ -174,6 +198,11 @@ int main()
         EXPECT_STREQ("A lista elemei: alpha, bravo, charlie, delta, echo, foxtrot, \n", stream.str().c_str());
     }END
 
+    TEST(list, insert_error){
+        list<int> lista;
+        lista.insertNode(1);
+        EXPECT_ANY_THROW(lista.insertNode(1));
+    }END
 
     TEST(list, iter++){
         list<const char*> lista;

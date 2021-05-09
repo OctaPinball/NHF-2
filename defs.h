@@ -15,7 +15,6 @@
 
 #include "persistence.h"
 #include "node.h"
-//#include "list.h"
 #include "list.hpp"
 
 #include "gtest_lite.h"
