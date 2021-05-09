@@ -37,16 +37,12 @@
 		</Compiler>
 		<Unit filename="defs.h" />
 		<Unit filename="gtest_lite.h" />
-		<Unit filename="list.h" />
 		<Unit filename="list.hpp" />
 		<Unit filename="main.cpp" />
 		<Unit filename="memtrace.cpp" />
 		<Unit filename="memtrace.h" />
 		<Unit filename="node.h" />
-		<Unit filename="node.hpp" />
 		<Unit filename="persistence.h" />
-		<Unit filename="string5.cpp" />
-		<Unit filename="string5.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>

@@ -15,9 +15,10 @@
 	<iostream>
 	"defs.h"
 
-1620408083 c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\defs.h
+1620557830 c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\defs.h
 	<iostream>
 	<string>
+	<cstring>
 	<sstream>
 	<fstream>
 	<bitset>
@@ -70,7 +71,7 @@
 	<regex>
 	"memtrace.h"
 
-1620467024 c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\list.hpp
+1620561203 c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\list.hpp
 
 1616617789 source:c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\string5.cpp
 	<iostream>

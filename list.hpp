@@ -19,6 +19,7 @@ protected:
 private:
     node<T>* first;
     node<T>* last;
+    list(const list&);
     bool isEmpty();
     bool dataExist(T);
 
@@ -239,6 +240,56 @@ void list<T>::insertNode(const T& dataIn)
         }
     }
 }
+
+template <>
+void list<const char*>::insertNode(char const* dataIn)
+{
+
+    if(dataExist(dataIn))
+    {
+        throw std::invalid_argument("Van mar ilyen adat a listaban!");
+    }
+
+    if(isEmpty()) //if there is no nodes in the list simply insert at beginning
+    {
+        node<const char*> * newPtr = new node<const char*>(dataIn);
+        first->next = newPtr;
+        newPtr->prev = first;
+        newPtr->next = last;
+        last->prev = newPtr;
+    }
+    else  //otherwise
+    {
+
+        if(strcmp(dataIn, first->next->data) < 0) //if the data of the new object is less than than the data of first node in list insert at beginning
+        {
+            insertAtFirst(dataIn);
+        }
+        else if(strcmp(dataIn, last->prev->data) >= 0) //if the data of the new object is greater than than the data of last node in list insert at end
+        {
+            insertAtLast(dataIn);
+        }
+        else //the new node is being inserted in order but not at the beginning or end
+
+        {
+            auto iter = firstData();
+            node<const char*> * newPtr = new node<const char*>(dataIn); //creates new node
+            while(iter.ptr->next != last) //runs until the end of the list is reached
+            {
+                if((strcmp(newPtr->data, iter.ptr->next->data) < 0) && (strcmp(newPtr->data, iter.ptr->data)) > 0) //if the data of the new node is less the data in the next node and greater than the data in the current node, insert after current node
+                {
+                    newPtr->next = iter.ptr->next;
+                    newPtr->prev = iter.ptr;
+                    iter.ptr->next->prev = newPtr;
+                    iter.ptr->next = newPtr;
+                    break;
+                }
+                iter++; //moves to the next node in the list
+            }
+        }
+    }
+}
+
 
 template <typename T>
 void list<T>::insertAtFirst(const T& dataIn)
