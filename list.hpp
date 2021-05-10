@@ -25,6 +25,7 @@ private:
     bool isEmpty();
     bool dataExist(T);
     void positionArrivalNode();
+    int size();
 
 
 public:
@@ -34,9 +35,6 @@ public:
     void deleteNode(T);
     void print(std::ostream&);
     void printInverse(std::ostream&);
-    //void insertAtFirst(const T&);
-    //void insertAtLast(const T&);
-    int size();
     virtual int decode8(std::istream&);
     virtual void encode8(std::ostream&, int);
     virtual std::ostream& write(std::ostream&);
@@ -107,7 +105,7 @@ public:
         }
 
         /// Az iterátor < operátorának függvénye.
-        /// Vizsgálja, két iterátor egyenlőtlenségét.
+        /// Vizsgálja, két iterátor egyenlőtlenségét (kisebb-nagyobb).
         ///@returns bool
         bool operator<(iterator a) const
         {
@@ -115,7 +113,7 @@ public:
         }
 
         /// Az iterátor < operátorának függvénye.
-        /// Vizsgálja, két iterátor egyenlőtlenségét.
+        /// Vizsgálja, két iterátor egyenlőtlenségét (kisebb-nagyobb).
         ///@returns bool
         bool operator>(iterator a) const
         {
@@ -208,9 +206,9 @@ bool list<T>::dataExist(T dataIn)
 
 /// Elemet töröl a listából.
 /** A paraméterként megadott elemet törli a listából, figyelve közben a kivételekre (lentebb).
-/// @param dataIn A törlendő listaelem adata.
-/// @warning Muszáj a litának legalább egy adattal rendelkeznie!
-/// @warning Muszáj listában szereplő adatot megadni paraméterként!
+ @param dataIn A törlendő listaelem adata.
+ @warning Muszáj a litának legalább egy adattal rendelkeznie!
+ @warning Muszáj listában szereplő adatot megadni paraméterként!
 **/
 template <typename T>
 void list<T>::deleteNode(T dataIn)
@@ -365,30 +363,6 @@ void list<T>::positionArrivalNode()
     arrival = NULL;
 }
 
-
-/*
-template <typename T>
-void list<T>::insertAtFirst(const T& dataIn)
-{
-    node<T> * newPtr = new node<T>(dataIn);
-    first->next->prev = newPtr;
-    newPtr->next = first->next;
-    newPtr->prev = first;
-    first->next = newPtr;
-}
-
-template <typename T>
-void list<T>::insertAtLast(const T& dataIn)
-{
-    node<T> * newPtr = new node<T>(dataIn);
-    last->prev->next = newPtr;
-    newPtr->prev = last->prev;
-    newPtr->next = last;
-    last->prev = newPtr;
-}
-*/
-
-
 /// A lista elemeit kiírja a paraméterként kapott ostream-re.
 /** A lista elemeit a függvény az iterátor segítségével járja be, és írja ki az összes listaelemet a paraméterként kapott ostream-re.
 @param os ide írja ki a függvény a listaelemeket
@@ -417,7 +391,7 @@ void list<T>::print(std::ostream& os)
 
 /// A lista elemeit kiírja fordított sorrendben a paraméterként kapott ostream-re.
 /** A lista elemeit a függvény az iterátor segítségével járja be fordított sorrendben, és írja ki az összes listaelemet fordított sorrendben a paraméterként kapott ostream-re.
-@parameter os ide írja ki a függvény a listaelemeket fordított sorrendben.
+@param os ide írja ki a függvény a listaelemeket fordított sorrendben.
 @warning Muszáj, hogy a lista rendelkezzen legalább egy elemmel.
 **/
 template <typename T>
@@ -482,7 +456,7 @@ A függvény először meghatározza a lista elemeinek a számát és elküldi a
 Ezek után minden egyes listaelemre meghatározza, hogy az adata mennyi karaktert tesz ki, majd ez után az encode8() függvény
 hívásával binárisá alakítja és kiírja ostream-re. Utána a listaelem adatát alakítja binárisá és írja ki ostreamre. Az utolsó két
 lépést addig ismétli ameddig a lista végére nem ér.
-@parameter stream ostream melyre a függvény kiírja a listát binárisan.
+@param stream ostream melyre a függvény kiírja a listát binárisan.
 @returns a paraméterként kapot ostream-el tér vissza.
 @warning Muszáj, hogy a listának legyen legalább egy eleme.
 @note Kiírás: <lista elemszáma> [<listaelem karakterszáma> <listaelem adata> <listaelem karakterszáma> <listaelem adata> stb...]
@@ -515,39 +489,10 @@ std::ostream& list<T>::write(std::ostream& stream)
     return stream;
 }
 
-/*
-template <>
-std::ostream& list<const char*>::write(std::ostream& stream)
-{
-    if (first->next == last || last->prev == first)
-    {
-        throw("A lista ures!");
-    }
-    else
-    {
-        int mainsize = size();
-        encode8(stream, mainsize);
-        auto iter = firstData();
-        while (iter.ptr != last)
-        {
-            encode8(stream, (int)strlen(iter.ptr->data));
-            unsigned char* numberchar = (unsigned char*)&(iter.ptr->data);
-
-            for (int i = 0; i < sizeof(T); i++)
-            {
-                stream << numberchar[i];
-            }
-            iter++; //moves to next node in list
-        }
-        std::cout << std::endl;
-    }
-    return stream;
-}
-*/
 
 /// A paraméterként kapot istream-ből kiolvassa majd integerré alakít 8 karaktert.
 /** A paraméterként kapot istream-ből kiolvassa majd integerré alakít 8 karaktert, majd ezzel az integerrel visszatér a függvény.
-@parameter stream istream melyről a függvény beolvassa binárisan az integert.
+@param stream istream melyről a függvény beolvassa binárisan az integert.
 @returns az átalakított maximum 8 helyiértékű integert adja vissza.
 **/
 template <typename T>
@@ -571,7 +516,7 @@ A függvény először beolvassa a lista elemeinek a számát a decode8() függv
 Ezután beolvassa a következő listaelem karakszámát a decode8() függvény segítségével.
 Utána a listaelem adatát olvassa be és hozza létre az insertNode() segítségvel. Az utolsó két
 lépést addig ismétli ameddig a lista fel nem épül teljesen (ezt segítí az elején beolvasott lista elemszám).
-@parameter stream istream melyről a függvény beolvassa a listát binárisan.
+@param stream istream melyről a függvény beolvassa a listát binárisan.
 @returns a paraméterként kapot istream-el tér vissza.
 @note Beolvasás: <lista elemszáma> [<listaelem karakterszáma> <listaelem adata> <listaelem karakterszáma> <listaelem adata> stb...]
 **/
@@ -598,7 +543,7 @@ std::istream& list <T>::read(std::istream& stream)
 
 /// Fájlba írja a listát.
 /** Fájlba írja a listát a write() segítségével. Előtte megnyitja a praméterként kapott fájlnévvel ellátott fájlt, majd a kiírás után bezárja azt.
-@parameter filename a fájl nevét tartalmazza
+@param filename a fájl nevét tartalmazza
 **/
 template <typename T>
 void list<T>::writetofile(const char* filename)
@@ -611,7 +556,7 @@ void list<T>::writetofile(const char* filename)
 
 /// Fájlból olvas be listát.
 /** Fájlból olvas be listát a read() függvény segítségével. A paraméterként kapott fájlnévvel ellátott fájlt megnyitja előtte, illetve utána bezárja azt.
-@parameter filename a fájl nevét tartalmazza.
+@param filename a fájl nevét tartalmazza.
 @warning A függvény amennyiben nem tudja megynitni a fájlt, kivételt dob.
 **/
 template <typename T>

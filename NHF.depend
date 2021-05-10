@@ -2,7 +2,7 @@
 1620585755 source:c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\main.cpp
 	"defs.h"
 
-1620598426 c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\node.h
+1620605626 c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\node.h
 	"defs.h"
 
 1619991145 c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\list.h
@@ -15,7 +15,7 @@
 	<iostream>
 	"defs.h"
 
-1620589060 c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\defs.h
+1620612585 c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\defs.h
 	<iostream>
 	<cstring>
 	<sstream>
@@ -70,7 +70,7 @@
 	<regex>
 	"memtrace.h"
 
-1620598908 c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\list.hpp
+1620612585 c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\list.hpp
 
 1616617789 source:c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\string5.cpp
 	<iostream>
@@ -81,7 +81,7 @@
 1616617789 c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\string5.h
 	<iostream>
 
-1620598926 c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\persistence.h
+1620601719 c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\persistence.h
 	"defs.h"
 
 1620562531 source:c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf_2\memtrace.cpp

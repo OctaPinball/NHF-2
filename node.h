@@ -14,7 +14,7 @@ class node
 {
     friend class list<T>;
 
-public:
+private:
         /// A listaelem adata.
         T data;
         /// A következő listaelemre mutató pointer.
