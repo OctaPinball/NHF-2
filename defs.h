@@ -11,8 +11,10 @@
 
 
 #include "persistence.h"
+#include "komplex.h"
 #include "node.h"
 #include "list.hpp"
+
 
 #include "gtest_lite.h"
 

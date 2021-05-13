@@ -146,6 +146,13 @@ public:
         return iterator(last->prev);
     }
 
+    /// Az iterátort az újonnan érkező elemre állítja.
+    iterator setArrival()
+    {
+        return iterator(arrival);
+    }
+
+    bool cmp(iterator, iterator) const;
 };
 
 /// Lista konstruktora.
@@ -174,6 +181,24 @@ list<T>::~list()
     }
     delete first;
     delete last;
+}
+
+template <typename T>
+bool list<T>::cmp(iterator iter1, iterator iter2) const
+{
+    return (*iter1 > *iter2);
+}
+
+template <>
+bool list<const char*>::cmp(iterator iter1, iterator iter2) const
+{
+    return (strcmp(*iter1, *iter2) > 0);
+}
+
+template <>
+bool list<Komplex>::cmp(iterator iter1, iterator iter2) const
+{
+    return ((*iter1).abs() > (*iter2).abs());
 }
 
 /// Megnézi, hogy a lista üres-e.
