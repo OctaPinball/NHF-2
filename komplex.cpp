@@ -99,4 +99,26 @@ void Komplex::setIm(double i){im = i;}
         return temp;
     }
 
+    /// Kiíáras egy ostream-re
+/// @param os - bal oldali operandus (ostream)
+/// @param rhs_k - jobb oldali operandus (Komplex)
+/// @return ostream, hogy fűzhető legyen
+std::ostream& operator<<(std::ostream& os, const Komplex& rhs_k) {
+    std::ios_base::fmtflags ofmt = os.flags(); // régi flag elmentése
+    os << std::noshowpos << rhs_k.getRe() << std::showpos << rhs_k.getIm() << 'j';
+    os.flags(ofmt);   // flag visszaállítása
+    return os;
+}
+
+/// Beolvasás egy istream-ről
+/// @param is - bal oldali operandus (istream)
+/// @param rhs_k - jobb oldali operandus (Komplex)
+/// @return itsream, hogy fűzhető legyen
+std::istream& operator>>(std::istream& is, Komplex& rhs_k) {
+    double re, im;
+    is >> re >> im; // beolvasunk
+    rhs_k = Komplex(re, im);
+    is.ignore(1);   // nagyon bízink benne, hogy ott a 'j'
+    return is;
+}
 

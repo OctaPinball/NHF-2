@@ -173,7 +173,7 @@ template <typename T>
 list<T>::~list()
 {
     auto iter = firstData();
-    while (iter != last)
+    while (iter != end())
     {
         node<T>* temp = iter.ptr;
         iter++;
@@ -219,9 +219,9 @@ template <typename T>
 bool list<T>::dataExist(T dataIn)
 {
     auto iter = firstData();
-    while(iter != last)
+    while(iter != end())
     {
-        if(dataIn == iter.ptr->data)
+        if(dataIn == *iter)
             return true;
         iter++;
     }
@@ -240,12 +240,14 @@ void list<T>::deleteNode(T dataIn)
 {
     if(isEmpty())
         throw std::length_error("A lista ures!");
+
     if(!(dataExist(dataIn)))
         throw std::invalid_argument("Nincs ilyen adat a listaban!");
+
     auto iter = firstData();
-    while (iter != last)
+    while (iter != end())
     {
-        if(dataIn == iter.ptr->data)
+        if(dataIn == *iter)
         {
             iter.ptr->next->prev = iter.ptr->prev;
             iter.ptr->prev->next = iter.ptr->next;
@@ -268,64 +270,6 @@ void list<T>::insertNode(const T& dataIn)
     positionArrivalNode();
 }
 
-/// Az újonnan létrehozott listaelemet (const char*) helyezi el a listában.
-/// Részletes leírás megtekinthető a positionArrivalNode() általános értékekre vett függvényvariációnál.
-template <>
-void list<const char*>::positionArrivalNode()
-{
-
-    if(dataExist(arrival->data))
-    {
-        delete arrival;
-        arrival = NULL;
-        throw std::invalid_argument("Van mar ilyen adat a listaban!");
-    }
-
-    if(isEmpty())
-    {
-        first->next = arrival;
-        arrival->prev = first;
-        arrival->next = last;
-        last->prev = arrival;
-    }
-    else
-    {
-
-        if(strcmp(arrival->data, first->next->data) < 0)
-        {
-            first->next->prev = arrival;
-            arrival->next = first->next;
-            arrival->prev = first;
-            first->next = arrival;
-        }
-        else if(strcmp(arrival->data, last->prev->data) >= 0)
-        {
-            last->prev->next = arrival;
-            arrival->prev = last->prev;
-            arrival->next = last;
-            last->prev = arrival;
-        }
-        else
-
-        {
-            auto iter = firstData();
-            while(iter.ptr->next != last)
-            {
-                if((strcmp(arrival->data, iter.ptr->next->data) < 0) && (strcmp(arrival->data, iter.ptr->data)) > 0)
-                {
-                    arrival->next = iter.ptr->next;
-                    arrival->prev = iter.ptr;
-                    iter.ptr->next->prev = arrival;
-                    iter.ptr->next = arrival;
-                    break;
-                }
-                iter++;
-            }
-        }
-    }
-    arrival = NULL;
-}
-
 /// Az újonnan létrehozott listaelemet helyezi el a listában.
 /** A listaelemet beilleszti a listába úgy, hogy a lista rendezett legyen.
  Előszőr megvizsgálja a, hogy a beilleszteni kívánt elem létezik-e már. Ezt a dataExist() függvénnyel teszi meg. Amennyiben a listaelem már létezik a függvény törli a beilleszteni kívánt listaelemet és kivételt dob.
@@ -335,7 +279,8 @@ void list<const char*>::positionArrivalNode()
 template <typename T>
 void list<T>::positionArrivalNode()
 {
-
+    auto arrivalIter = setArrival();
+    auto backIter = firstData();
     if(dataExist(arrival->data))
     {
         delete arrival;
@@ -353,35 +298,42 @@ void list<T>::positionArrivalNode()
     else
     {
 
-        if(arrival->data < first->next->data)
+        if(cmp(backIter, arrivalIter))
         {
             first->next->prev = arrival;
             arrival->next = first->next;
             arrival->prev = first;
             first->next = arrival;
         }
-        else if(arrival->data >= last->prev->data)
-        {
-            last->prev->next = arrival;
-            arrival->prev = last->prev;
-            arrival->next = last;
-            last->prev = arrival;
-        }
         else
-
         {
-            auto iter = firstData();
-            while(iter.ptr->next != last)
+            backIter = lastData();
+            if(cmp(arrivalIter, backIter))
             {
-                if((arrival->data < iter.ptr->next->data) && (arrival->data > iter.ptr->data))
+                last->prev->next = arrival;
+                arrival->prev = last->prev;
+                arrival->next = last;
+                last->prev = arrival;
+            }
+            else
+
+            {
+                backIter = firstData();
+                auto frontIter = firstData();
+                frontIter++;
+                while(frontIter != end())
                 {
-                    arrival->next = iter.ptr->next;
-                    arrival->prev = iter.ptr;
-                    iter.ptr->next->prev = arrival;
-                    iter.ptr->next = arrival;
-                    break;
+                    if(cmp(arrivalIter, backIter) && cmp(frontIter, arrivalIter))
+                    {
+                        arrivalIter.ptr->next = frontIter.ptr;
+                        arrivalIter.ptr->prev = backIter.ptr;
+                        frontIter.ptr->prev = arrivalIter.ptr;
+                        backIter.ptr->next = arrivalIter.ptr;
+                        break;
+                    }
+                    backIter++;
+                    frontIter++;
                 }
-                iter++;
             }
         }
     }
@@ -405,9 +357,9 @@ void list<T>::print(std::ostream& os)
     {
         auto iter = firstData();
         os << "A lista elemei: ";
-        while(iter.ptr != last)
+        while(iter != end())
         {
-            os << iter.ptr->data << ", ";
+            os << *iter << ", ";
             iter++;
         }
         os << endl;
@@ -431,9 +383,9 @@ void list<T>::printInverse(std::ostream& os)
     {
         auto iter = lastData();
         os << "A lista elemei: ";
-        while(iter.ptr != first) //prints until the end of the list is reached
+        while(iter != begin()) //prints until the end of the list is reached
         {
-            os << iter.ptr->data << ", ";
+            os << *iter << ", ";
             iter--; //moves to next node in list
         }
         os << endl;
@@ -449,7 +401,7 @@ int list<T>::size()
 {
     auto iter = firstData();
     int size = 0;
-    while(iter.ptr != last)
+    while(iter != end())
     {
         iter++;
         size++;
@@ -498,10 +450,10 @@ std::ostream& list<T>::write(std::ostream& stream)
         int mainsize = size();
         encode8(stream, mainsize);
         auto iter = firstData();
-        while(iter.ptr != last)
+        while(iter != end())
         {
             encode8(stream, sizeof(T));
-            unsigned char* numberchar = (unsigned char*)&(iter.ptr->data);
+            unsigned char* numberchar = (unsigned char*)&(*iter);
 
             for (int i = 0; i < (int)sizeof(T); i++)
             {

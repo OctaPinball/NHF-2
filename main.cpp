@@ -4,7 +4,8 @@
 int main()
 {
 
-    TEST(list, printInt1){
+    TEST(list, printInt1)
+    {
         list<int> lista;
         lista.insertNode(3);
         lista.insertNode(2);
@@ -13,9 +14,11 @@ int main()
         std::stringstream stream;
         lista.print(stream);
         EXPECT_STREQ("A lista elemei: 1, 2, 3, \n", stream.str().c_str());
-    }END
+    }
+    END
 
-    TEST(list, printInt2){
+    TEST(list, printInt2)
+    {
         list<int> lista;
         lista.insertNode(1);
         lista.insertNode(3);
@@ -24,9 +27,11 @@ int main()
         std::stringstream stream;
         lista.print(stream);
         EXPECT_STREQ("A lista elemei: 1, 2, 3, \n", stream.str().c_str());
-    }END
+    }
+    END
 
-    TEST(list, printDouble1){
+    TEST(list, printDouble1)
+    {
         list<double> lista;
         lista.insertNode(1.2);
         lista.insertNode(2.4);
@@ -35,9 +40,11 @@ int main()
         std::stringstream stream;
         lista.print(stream);
         EXPECT_STREQ("A lista elemei: 1.2, 2.4, 3.6, \n", stream.str().c_str());
-    }END
+    }
+    END
 
-    TEST(list, printDouble2){
+    TEST(list, printDouble2)
+    {
         list<double> lista;
         lista.insertNode(1.2);
         lista.insertNode(4.4);
@@ -48,9 +55,11 @@ int main()
         std::stringstream stream;
         lista.print(stream);
         EXPECT_STREQ("A lista elemei: 1.2, 3.6, 4.4, \n", stream.str().c_str());
-    }END
+    }
+    END
 
-    TEST(list, printChar1){
+    TEST(list, printChar1)
+    {
         list<char> lista;
         lista.insertNode('a');
         lista.insertNode('b');
@@ -59,9 +68,11 @@ int main()
         std::stringstream stream;
         lista.print(stream);
         EXPECT_STREQ("A lista elemei: a, b, c, \n", stream.str().c_str());
-    }END
+    }
+    END
 
-    TEST(list, printChar2){
+    TEST(list, printChar2)
+    {
         list<char> lista;
         lista.insertNode('a');
         lista.insertNode('d');
@@ -70,9 +81,11 @@ int main()
         std::stringstream stream;
         lista.print(stream);
         EXPECT_STREQ("A lista elemei: a, c, d, \n", stream.str().c_str());
-    }END
+    }
+    END
 
-    TEST(list, printString1){
+    TEST(list, printString1)
+    {
         list<const char*> lista;
         lista.insertNode("alpha");
         lista.insertNode("ab");
@@ -81,9 +94,11 @@ int main()
         std::stringstream stream;
         lista.print(stream);
         EXPECT_STREQ("A lista elemei: ab, alpha, charlie, \n", stream.str().c_str());
-    }END
+    }
+    END
 
-    TEST(list, printString2){
+    TEST(list, printString2)
+    {
         list<const char*> lista;
         lista.insertNode("alpha");
         lista.insertNode("delta");
@@ -92,9 +107,11 @@ int main()
         std::stringstream stream;
         lista.print(stream);
         EXPECT_STREQ("A lista elemei: alpha, charlie, delta, \n", stream.str().c_str());
-    }END
+    }
+    END
 
-    TEST(list, printandDelete){
+    TEST(list, printandDelete)
+    {
         list<const char*> lista;
         lista.insertNode("alpha");
         lista.deleteNode("alpha");
@@ -103,9 +120,11 @@ int main()
         std::stringstream stream;
         lista.print(stream);
         EXPECT_STREQ("A lista elemei: charlie, \n", stream.str().c_str());
-    }END
+    }
+    END
 
-    TEST(list, printInverse){
+    TEST(list, printInverse)
+    {
         list<const char*> lista;
         lista.insertNode("alpha");
         lista.insertNode("delta");
@@ -114,107 +133,167 @@ int main()
         std::stringstream stream;
         lista.printInverse(stream);
         EXPECT_STREQ("A lista elemei: delta, charlie, alpha, \n", stream.str().c_str());
-    }END
+    }
+    END
 
-    TEST(list, errorDuplicate){
+    TEST(list, errorDuplicate)
+    {
         list<const char*> lista;
         lista.insertNode("alpha");
 
         EXPECT_ANY_THROW(lista.insertNode("alpha"));
-    }END
+    }
+    END
 
-    TEST(list, errorDelete1){
+    TEST(list, errorDelete1)
+    {
         list<const char*> lista;
 
         EXPECT_ANY_THROW(lista.deleteNode("alpha"));
-    }END
+    }
+    END
 
-    TEST(list, errorDelete2){
+    TEST(list, errorDelete2)
+    {
         list<const char*> lista;
         lista.insertNode("delta");
 
         EXPECT_ANY_THROW(lista.deleteNode("alpha"));
-    }END
+    }
+    END
 
-    TEST(list, errorPrint){
+    TEST(list, errorPrint)
+    {
         list<const char*> lista;
 
         std::stringstream stream;
         EXPECT_ANY_THROW(lista.print(stream));
-    }END
+    }
+    END
 
-    TEST(list, errorPrintInverse){
+    TEST(list, errorPrintInverse)
+    {
         list<const char*> lista;
 
         std::stringstream stream;
         EXPECT_ANY_THROW(lista.printInverse(stream));
-    }END
+    }
+    END
 
-    TEST(list, errorWrite){
+    TEST(list, errorWrite)
+    {
         list<const char*> lista;
 
         std::stringstream stream;
         EXPECT_ANY_THROW(lista.write(stream));
-    }END
+    }
+    END
 
-    TEST(list, errorOpenFile){
+    TEST(list, errorOpenFile)
+    {
         list<const char*> lista;
 
         std::stringstream stream;
         EXPECT_ANY_THROW(lista.readfromfile("doesntexist.txt"));
-    }END
+    }
+    END
 
-    TEST(list, write_and_read_file_int){
-    list<int> lista;
-    lista.insertNode(1);
-    lista.insertNode(3);
-    lista.insertNode(2);
-    lista.insertNode(4);
-    lista.insertNode(6);
-    lista.insertNode(5);
-    lista.writetofile("inttest.txt");
-    list<int> lista2;
-    lista2.readfromfile("inttest.txt");
+    TEST(list, write_and_read_file_int)
+    {
+        list<int> lista;
+        lista.insertNode(1);
+        lista.insertNode(3);
+        lista.insertNode(2);
+        lista.insertNode(4);
+        lista.insertNode(6);
+        lista.insertNode(5);
+        lista.writetofile("inttest.txt");
+        list<int> lista2;
+        lista2.readfromfile("inttest.txt");
 
         std::stringstream stream;
         lista2.print(stream);
         EXPECT_STREQ("A lista elemei: 1, 2, 3, 4, 5, 6, \n", stream.str().c_str());
-    }END
+    }
+    END
 
-    TEST(list, write_and_read_file_const_char){
-    list<const char*> lista;
-    lista.insertNode("alpha");
-    lista.insertNode("charlie");
-    lista.insertNode("bravo");
-    lista.insertNode("echo");
-    lista.insertNode("delta");
-    lista.insertNode("foxtrot");
-    lista.writetofile("chartest.txt");
-    list<const char*> lista2;
-    lista2.readfromfile("chartest.txt");
+    TEST(list, write_and_read_file_const_char)
+    {
+        list<const char*> lista;
+        lista.insertNode("alpha");
+        lista.insertNode("charlie");
+        lista.insertNode("bravo");
+        lista.insertNode("echo");
+        lista.insertNode("delta");
+        lista.insertNode("foxtrot");
+        lista.writetofile("chartest.txt");
+        list<const char*> lista2;
+        lista2.readfromfile("chartest.txt");
 
         std::stringstream stream;
         lista2.print(stream);
         EXPECT_STREQ("A lista elemei: alpha, bravo, charlie, delta, echo, foxtrot, \n", stream.str().c_str());
-    }END
+    }
+    END
 
-    TEST(list, insert_error){
+    TEST(list, insert_error)
+    {
         list<int> lista;
         lista.insertNode(1);
         EXPECT_ANY_THROW(lista.insertNode(1));
-    }END
+    }
+    END
 
-    TEST(list, iter++){
+    TEST(list, iter++)
+    {
         list<const char*> lista;
         auto iter = lista.firstData();
         EXPECT_ANY_THROW(iter++);
-    }END
+    }
+    END
 
-    TEST(list, iter--){
+    TEST(list, iter--)
+    {
         list<const char*> lista;
         auto iter = lista.lastData();
         EXPECT_ANY_THROW(iter--);
-    }END
+    }
+    END
+
+    TEST(list, KomplexPrint)
+    {
+        list<Komplex> lista;
+        Komplex adat1(1,2);
+        lista.insertNode(adat1);
+        Komplex adat2(100,200);
+        lista.insertNode(adat2);
+        Komplex adat3(10,20);
+        lista.insertNode(adat3);
+
+        std::stringstream stream;
+        lista.print(stream);
+        EXPECT_STREQ("A lista elemei: 1+2j, 10+20j, 100+200j, \n", stream.str().c_str());
+    }
+    END
+
+    TEST(list, Komplex_read_and_write)
+    {
+        list<Komplex> lista;
+        Komplex adat1(1,2);
+        lista.insertNode(adat1);
+        Komplex adat2(100,200);
+        lista.insertNode(adat2);
+        Komplex adat3(10,20);
+        lista.insertNode(adat3);
+        lista.writetofile("komplex.txt");
+        list<Komplex> lista2;
+        lista2.readfromfile("komplex.txt");
+
+        std::stringstream stream;
+        lista2.print(stream);
+        EXPECT_STREQ("A lista elemei: 1+2j, 10+20j, 100+200j, \n", stream.str().c_str());
+    }
+    END
 
     return 0;
 }

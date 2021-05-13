@@ -139,7 +139,7 @@ public:
 /// Ezek nem az osztály tagfüggvényei, habár az osztály adatával dolgoznak
 ///
 
-#if ELKESZULT >= 5
+
 // double + Komplex csak globális függvénnyel valósítható meg,
 // mivel a bal oldal nem osztály
 /// double + Komplex
@@ -147,9 +147,7 @@ public:
 /// @param rhs_k - jobb oldali operandus (Komplex)
 /// @return egy új komplex adat - a két adat összege
 Komplex operator+(double lhs_d, const Komplex& rhs_k);
-#endif
 
-#if ELKESZULT >= 7
 // cout << Komplex is csak globális függvénnyel valósítható meg, mivel
 // az baloldali osztály (ostream) nincs a kezünkben, nem módosítható
 /// Kiírás egy ostream-re
@@ -163,9 +161,7 @@ std::ostream& operator<<(std::ostream& os, const Komplex& rhs_k);
 /// @param rhs_k - jobb oldali operandus (Komplex)
 /// @return istream&, hogy fűzhető legyen
 std::istream& operator>>(std::istream& is, Komplex& rhs_k);
-#endif
 
-#if ELKESZULT >= 9
 // double * Komplex csak globális függvénnyel valósítható meg,
 // mivel a bal oldal nem osztály
 /// double * Komplex
@@ -173,6 +169,6 @@ std::istream& operator>>(std::istream& is, Komplex& rhs_k);
 /// @param rhs_k - jobb oldali operandus (Komplex)
 /// @return egy új komplex adat - a két adat szorzata
 Komplex operator*(double lhs_d, const Komplex& rhs_k);
-#endif
+
 
 #endif  // KOMPLEX_H

@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1620585755 source:c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\main.cpp
+1620923390 source:c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\main.cpp
 	"defs.h"
 
 1620605626 c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\node.h
@@ -15,7 +15,7 @@
 	<iostream>
 	"defs.h"
 
-1620612585 c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\defs.h
+1620907291 c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\defs.h
 	<iostream>
 	<cstring>
 	<sstream>
@@ -23,6 +23,7 @@
 	<bitset>
 	<exception>
 	"persistence.h"
+	"komplex.h"
 	"node.h"
 	"list.hpp"
 	"gtest_lite.h"
@@ -70,7 +71,7 @@
 	<regex>
 	"memtrace.h"
 
-1620612585 c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\list.hpp
+1620925336 c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\list.hpp
 
 1616617789 source:c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\string5.cpp
 	<iostream>
@@ -150,11 +151,11 @@
 	<regex>
 	"memtrace.h"
 
-1620906047 source:c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\komplex.cpp
+1620914961 source:c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\komplex.cpp
 	<iostream>
 	<iomanip>
 	<cmath>
 	"komplex.h"
 
-1620906098 c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\komplex.h
+1620914961 c:\users\schol\onedrive - kormányzati informatikai fejlesztési Ügynökség\documents\programozás 2\nhf\komplex.h
 
